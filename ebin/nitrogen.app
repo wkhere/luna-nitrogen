@@ -5,5 +5,5 @@
               {applications,[kernel,stdlib]},
               {mod,{nitrogen_app,[]}},
               {env,[]},
-              {modules,[index,mobile,nitrogen_app,nitrogen_cowboy,
-                        nitrogen_sup]}]}.
+              {modules,[index,mnesia_session_handler,mobile,nitrogen_app,
+                        nitrogen_cowboy,nitrogen_sup]}]}.

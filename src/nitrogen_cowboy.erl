@@ -27,6 +27,8 @@ handle(Req,_Opts) ->
 
     %% Establishes the context with the Request and Response Bridges
     nitrogen:init_request(RequestBridge, ResponseBridge),
+
+    nitrogen:handler(mnesia_session_handler, []),
     
     {ok, NewReq} = nitrogen:run(),
 

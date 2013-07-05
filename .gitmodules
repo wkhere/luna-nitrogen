@@ -1,0 +1,3 @@
+[submodule "src/handlers/mnesia_session"]
+	path = src/handlers/mnesia_session
+	url = git@github.com:herenowcoder/nitro_mnesia_session.git
