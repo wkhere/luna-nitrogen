@@ -2,6 +2,10 @@
 -module (index).
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
+-define(checkmark, <<16#2713/utf8>>).
+
+starts_w_foo(_Tag, _V=[$f,$o,$o|_]) -> true;
+starts_w_foo(_Tag, _V) -> false.
 
 main() -> #template { file="./site/templates/bare.html" }.
 
@@ -11,7 +15,20 @@ debug_css() ->
 
 title() -> "Welcome to Nitrogen".
 
+wire() ->
+    wf:session(test, v),
+    wf:wire(t1, #validate{
+        on=blur,
+        success_text=?checkmark,
+        validators= [
+            #is_required{text="<- required"},
+            #custom{text="must start with 'foo'", function=fun starts_w_foo/2},
+            #min_length{text="min 4 chars!!", length=4}
+        ]
+    }).
+
 body() ->
+    wire(),
     #container_16 { body=[
         #grid_12 { prefix=2, suffix=2, alpha=true, omega=true,
             body=inner_body()
