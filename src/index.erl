@@ -12,8 +12,10 @@ debug_css() ->
 title() -> "Welcome to Nitrogen".
 
 body() ->
-    #container_12 { body=[
-        #grid_8 { alpha=true, prefix=2, suffix=2, omega=true, body=inner_body() }
+    #container_16 { body=[
+        #grid_12 { prefix=2, suffix=2, alpha=true, omega=true,
+            body=inner_body()
+        }
     ]}.
 
 inner_body() -> 
@@ -24,9 +26,18 @@ inner_body() ->
         If you can see this page, then your Nitrogen server is up and
         running. Click the button below to test postbacks.
         ",
-        #p{}, 	
-        #button { id=button, text="Click me!", postback=click },
+        #p{},
+        #grid_clear{},
+        #grid_2 { alpha=true, body=[
+            #button{ id=button, text="Click me!", 
+                postback=click }
+        ]},
+        #grid_4 { id=button_comment_box, omega=true, body=[]},
+        #grid_clear{},
 		#p{},
+        #textbox {id=t1, next=t2, placeholder="Foo", postback=t1pb},
+        #br{}, #textbox {id=t2, text="Bar"},
+        #p{},
         "
         Run <b>./bin/dev help</b> to see some useful developer commands.
         ",
@@ -36,8 +47,13 @@ inner_body() ->
 		"
     ].
 	
+event(t1pb) ->
+    ?PRINT(t1pb);
+
 event(click) ->
-    wf:replace(button, #panel { 
-        body="You clicked the button!", 
-        actions=#effect { effect=highlight }
+    wf:replace(button, #button { id=button, text="Click me again",
+        postback=click }),
+    wf:update(button_comment_box,
+        #span{ text="You clicked the button!",
+            actions=[#fade{speed=1000}]
     }).
