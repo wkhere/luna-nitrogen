@@ -5,6 +5,10 @@
 
 main() -> #template { file="./site/templates/bare.html" }.
 
+debug_css() ->
+    %% todo: turn on conditionally
+    "<link rel='stylesheet' href='/css/debug.css' />".
+
 title() -> "Welcome to Nitrogen".
 
 body() ->
