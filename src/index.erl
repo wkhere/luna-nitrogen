@@ -8,8 +8,7 @@ title() -> "luna.inthephase".
 desc() -> "All things lunar.".
 keywords() -> "moon, moon phases, luna, lunar".
     
-
-body() -> [
+body() -> wire(), [
     #br{},
     #container_16 { body=[
         #grid_3 { prefix=2, alpha=true, body=logopix() },
@@ -17,9 +16,25 @@ body() -> [
             body=logo()
         },
         #grid_clear{},
-        #grid_16 { body=placeholder() }
+        #grid_16 { id=main, body=placeholder() },
+        #p{},
+        #grid_16 { body=copyright() }
     ]}
 ].
+
+wire() ->
+    wf:wire(main, copyright, #event{ type=mouseover, actions= #fade{} }),
+    wf:wire(main, copyright, #event{ type=mouseout, actions= #appear{} }).
+
+copyright() ->
+    #panel{ id=copyright,
+        style="font:small-caps 15px normal; text-align:center; color:#aaa",
+        body=[ "&copy; ",
+            #span{style="font-size:80%", body="2013 "},
+            #link{ text="Dual Tech", url="http://dualtech.com.pl" },
+            ". All Rigths Reserved."
+    ]}.
+
 
 placeholder() -> [
     #p{},
