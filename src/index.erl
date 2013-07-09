@@ -38,18 +38,6 @@ logo() -> [
 ].
 
 
-event(t1pb) ->
-    ?PRINT(t1pb);
-
-event(click) ->
-    wf:replace(button, #button { id=button, text="Click me again",
-        postback=click }),
-    wf:update(button_comment_box,
-        #span{ text="You clicked the button!",
-            actions=[#fade{speed=1000}]
-    }).
-
-
 %% helpers
 
 rand_element(Xs) ->
