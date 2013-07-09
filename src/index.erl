@@ -17,8 +17,16 @@ body() -> [
             body=logo()
         },
         #grid_clear{},
-        #grid_16{}
+        #grid_16 { body=placeholder() }
     ]}
+].
+
+placeholder() -> [
+    #p{},
+    #panel{
+        style="font:italic small-caps 72px fantasy; text-align:center; color:#fec",
+        body="Coming Soon!!"
+    }
 ].
 
 
