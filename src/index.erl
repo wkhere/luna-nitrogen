@@ -22,7 +22,13 @@ body() -> [
 ].
 
 logopix() ->
-    #image{ image="/images/Golden_Moon_small.jpg", style="width:120px" }.
+    Pixtab = [
+        "Golden_Moon", "Moonburn",
+        "Lunar_eclipse_June_2011", "Solar_eclipse_1999"
+    ],
+    #image{
+        image="/images/" ++ rand_element(Pixtab) ++ "_small.jpg",
+        style="height:100px" }.
 
 logo() -> [
     #p{},
@@ -42,3 +48,9 @@ event(click) ->
         #span{ text="You clicked the button!",
             actions=[#fade{speed=1000}]
     }).
+
+
+%% helpers
+
+rand_element(Xs) ->
+    lists:nth( random:uniform(length(Xs)), Xs ).
