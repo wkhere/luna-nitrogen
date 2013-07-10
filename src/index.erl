@@ -11,7 +11,7 @@ keywords() -> "moon, moon phases, luna, lunar".
 body() -> wire(), [
     #br{},
     #container_16 { body=[
-        #grid_3 { prefix=2, alpha=true, body=logopix() },
+        #grid_3 { prefix=2, alpha=true, body=moonpix() },
         #grid_7 { suffix=4, omega=true, style="outline:1px dotted",
             body=logo()
         },
@@ -54,9 +54,9 @@ rand_from_pixtab() ->
     rand_element(Pixtab).
 
 
-logopix() -> logopix(rand_from_pixtab()).
+moonpix() -> moonpix(rand_from_pixtab()).
 
-logopix(Pix) ->
+moonpix(Pix) ->
     PixName = case Pix of
         {X, {bg, BgColor}} ->
             wf:wire(#script{
