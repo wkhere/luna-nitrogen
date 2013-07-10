@@ -49,22 +49,24 @@ rand_from_pixtab() ->
     Pixtab = [
         "Golden_Moon", "Moonburn",
         "Lunar_eclipse_June_2011", "Solar_eclipse_1999",
-        "Solar_eclipse_May_2013"
+        {"Solar_eclipse_May_2013", {bg, '#130101'}}
     ],
     rand_element(Pixtab).
 
 
-logopix() ->
-    Pix = rand_from_pixtab(),
-    case Pix of 
-        "Solar_eclipse_May_2013" ->
+logopix() -> logopix(rand_from_pixtab()).
+
+logopix(Pix) ->
+    PixName = case Pix of
+        {X, {bg, BgColor}} ->
             wf:wire(#script{
-                script="document.body.style.background='#130101'"
-            });
-        _ -> nop
+                script=wf:f("document.body.style.background=~p", [BgColor])
+            }),
+            X;
+        X -> X
     end,
     #image{
-        image="/images/" ++ Pix ++ "_small.jpg",
+        image="/images/" ++ PixName ++ "_small.jpg",
         style="height:100px" }.
 
 logo() -> [
