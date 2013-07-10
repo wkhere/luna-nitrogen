@@ -78,7 +78,8 @@ logo() -> [
 %% helpers
 
 rand_element(Xs) ->
-    lists:nth( random:uniform(length(Xs)), Xs ).
+    N = crypto:rand_uniform(1,1+length(Xs)),
+    lists:nth(N, Xs).
 
 maybe(undefined, Default) -> Default;
 maybe(X, _) -> X.
