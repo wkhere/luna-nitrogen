@@ -65,9 +65,12 @@ moonpix(Pix) ->
             X;
         X -> X
     end,
+    wf:wire(moonpix, [#hide{speed=0}, #appear{speed=1000}]),
     #image{
+        id=moonpix,
         image="/images/" ++ PixName ++ "_small.jpg",
         style="height:100px" }.
+
 
 logo() -> [
     #p{},
