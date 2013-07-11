@@ -64,7 +64,6 @@ rand_from_pixtab() ->
         "Lunar_eclipse_June_2011", "Solar_eclipse_1999",
         {"Solar_eclipse_May_2013", {bg, '#130101'}}
     ],
-    maybe(aaa,20),
     rand_element(Pixtab).
 
 
