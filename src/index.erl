@@ -1,5 +1,5 @@
 %% -*- mode: nitrogen -*-
--module (index).
+-modulez(index).
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
 
