@@ -1,0 +1,5 @@
+#!/bin/sh
+files=$*
+cd `gitroot`
+[ -z "$files" ] && files=$(ls src/*.erl|grep -v nitrogen)
+exec typer -pa ../lib/nitrogen_core $files
