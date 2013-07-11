@@ -3,11 +3,20 @@
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
 
+-type element() :: tuple() |string() | binary(). %todo: all wf elements
+-type elements() :: list(element()).
+-spec main() -> #template{}.
+-spec title() -> string().
+-spec desc() -> string().
+-spec keywords() -> string().
+
 main() -> #template { file="./site/templates/bare.html" }.
 title() -> "luna.inthephase".
 desc() -> "All things lunar.".
 keywords() -> "moon, moon phases, luna, lunar".
-    
+
+
+-spec body() -> elements().
 body() -> wire(), [
     #br{},
     #container_16 { body=[
@@ -22,10 +31,12 @@ body() -> wire(), [
     ]}
 ].
 
+-spec wire() -> ok.
 wire() ->
     wf:wire(main, copyright, #event{ type=mouseover, actions= #fade{} }),
     wf:wire(main, copyright, #event{ type=mouseout, actions= #appear{} }).
 
+-spec copyright() -> #panel{}.
 copyright() ->
     #panel{ id=copyright,
         style="font:small-caps 15px normal; text-align:center; color:#aaa",
@@ -35,7 +46,7 @@ copyright() ->
             ". All Rigths Reserved."
     ]}.
 
-
+-spec placeholder() -> elements().
 placeholder() -> [
     #p{},
     #panel{
@@ -45,17 +56,22 @@ placeholder() -> [
 ].
 
 
+-type pix() :: string() | {string(), {atom(), atom()}}.
+-spec rand_from_pixtab() -> pix().
 rand_from_pixtab() ->
     Pixtab = [
         "Golden_Moon", "Moonburn",
         "Lunar_eclipse_June_2011", "Solar_eclipse_1999",
         {"Solar_eclipse_May_2013", {bg, '#130101'}}
     ],
+    maybe(aaa,20),
     rand_element(Pixtab).
 
 
+-spec moonpix() -> #image{}.
 moonpix() -> moonpix(rand_from_pixtab()).
 
+-spec moonpix(pix()) -> #image{}.
 moonpix(Pix) ->
     PixName = case Pix of
         {X, {bg, BgColor}} ->
@@ -72,6 +88,7 @@ moonpix(Pix) ->
         style="height:100px" }.
 
 
+-spec logo() -> elements().
 logo() -> [
     #p{},
     #span{ text="luna.inthephase",
@@ -82,9 +99,11 @@ logo() -> [
 
 %% helpers
 
+-spec rand_element(list(T)) -> T.
 rand_element(Xs) ->
     N = crypto:rand_uniform(1,1+length(Xs)),
     lists:nth(N, Xs).
 
+-spec maybe(T,T) -> T.
 maybe(undefined, Default) -> Default;
 maybe(X, _) -> X.
