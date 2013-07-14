@@ -4,6 +4,7 @@
 -include_lib("nitrogen_core/include/wf.hrl").
 
 -type element() :: tuple() |string() | binary(). %todo: all wf elements
+-type action() :: tuple().
 -type elements() :: list(element()).
 -spec main() -> #template{}.
 -spec title() -> string().
@@ -17,24 +18,28 @@ keywords() -> "moon, moon phases, luna, lunar".
 
 
 -spec body() -> elements().
-body() -> wire(), [
-    #br{},
-    #container_16 { body=[
-        #grid_3 { prefix=2, alpha=true, body=moonpix() },
-        #grid_7 { suffix=4, omega=true, style="outline:1px dotted",
-            body=logo()
-        },
-        #grid_clear{},
-        #grid_16 { id=main, body=placeholder() },
-        #p{},
-        #grid_16 { body=copyright() }
-    ]}
-].
-
--spec wire() -> ok.
-wire() ->
+body() ->
+    {MoonEl, MoonAction} = moonpix(),
+    wf:wire(moonpix, [
+        #hide{},
+        MoonAction,
+        #appear{speed=1000}
+    ]),
     wf:wire(main, copyright, #event{ type=mouseover, actions= #fade{} }),
-    wf:wire(main, copyright, #event{ type=mouseout, actions= #appear{} }).
+    wf:wire(main, copyright, #event{ type=mouseout, actions= #appear{} }),
+    [
+        #br{},
+        #container_16 { body=[
+            #grid_3 { id=moonbox, prefix=2, alpha=true, body=MoonEl },
+            #grid_7 { suffix=4, omega=true, style="outline:1px dotted",
+                body=logo()
+            },
+            #grid_clear{},
+            #grid_16 { id=main, body=placeholder() },
+            #p{},
+            #grid_16 { body=copyright() }
+        ]}
+    ].
 
 -spec copyright() -> #panel{}.
 copyright() ->
@@ -67,24 +72,42 @@ rand_from_pixtab() ->
     rand_element(last_moon, Pixtab).
 
 
--spec moonpix() -> #image{}.
+-spec moonpix() -> {#link{}, action()}.
 moonpix() -> moonpix(rand_from_pixtab()).
 
--spec moonpix(pix()) -> #image{}.
+-spec moonpix(pix()) -> {#link{}, action()}.
 moonpix(Pix) ->
-    PixName = case Pix of
+    {PixName, Bg} = case Pix of
         {X, {bg, BgColor}} ->
-            wf:wire(#script{
-                script=wf:f("document.body.style.background=~p", [BgColor])
-            }),
-            X;
-        X -> X
+            {X, BgColor};
+        X -> {X, '#000'}
     end,
-    wf:wire(moonpix, [#hide{speed=0}, #appear{speed=1000}]),
-    #image{
-        id=moonpix,
-        image="/images/" ++ PixName ++ "_small.jpg",
-        style="height:100px" }.
+    Action = #script{
+        script=wf:f("document.body.style.background=~p", [Bg])
+    },
+    Element = #link{
+        postback=pixclicked,
+        body= #image{
+            id=moonpix,
+            image="/images/" ++ PixName ++ "_small.jpg",
+            style="height:100px" }},
+    {Element, Action}.
+
+new_moonpix() ->
+    {Pix, Action} = moonpix(),
+    PixSrc = Pix#link.body#image.image,
+    wf:wire(moonpix, [
+        #fade{speed=1000, actions=[
+            #script{script="obj('moonpix').src='"++PixSrc++"'"},
+            Action,
+            #appear{speed=2000}
+        ]}
+    ]).
+%% results of experiments w/ trigering the right events:
+%% - jquery effects are rendered in a way that actions record field
+%%   acts as complete() jquery handler
+%% - it (probably) should be an array of actions, not a single action
+%% - #script doesn't consider actions field
 
 
 -spec logo() -> elements().
@@ -95,6 +118,10 @@ logo() -> [
     #p{}
 ].
 
+%% events
+
+event(pixclicked) ->
+    new_moonpix().
 
 %% helpers
 
