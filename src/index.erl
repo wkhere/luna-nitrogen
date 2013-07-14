@@ -64,7 +64,7 @@ rand_from_pixtab() ->
         "Lunar_eclipse_June_2011", "Solar_eclipse_1999",
         {"Solar_eclipse_May_2013", {bg, '#130101'}}
     ],
-    rand_element(Pixtab).
+    rand_element(last_moon, Pixtab).
 
 
 -spec moonpix() -> #image{}.
@@ -98,10 +98,21 @@ logo() -> [
 
 %% helpers
 
--spec rand_element(list(T)) -> T.
-rand_element(Xs) ->
-    N = crypto:rand_uniform(1,1+length(Xs)),
+-spec rand_element(atom(), list(T)) -> T.
+rand_element(Token, Xs) ->
+    Len=length(Xs),
+    Last=wf:state_default(Token, Len),
+    N = rand_n(Last, Len),
+    wf:state(Token, N),
     lists:nth(N, Xs).
+
+rand_n(LastX, N) ->
+    X = crypto:rand_uniform(1,1+N),
+    case X of
+        LastX -> rand_n(LastX, N);
+        _ -> X
+    end.
+
 
 -spec maybe(T,T) -> T.
 maybe(undefined, Default) -> Default;
