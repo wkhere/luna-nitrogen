@@ -117,3 +117,14 @@ rand_n(LastX, N) ->
 -spec maybe(T,T) -> T.
 maybe(undefined, Default) -> Default;
 maybe(X, _) -> X.
+
+%% -spec runner(fun(()->any())) -> #event{}.
+%% runner(F) ->
+%%     #event{type=timer, delay=1,
+%%         postback={run, F}}.
+
+%% chain_actions(As) ->
+%%     lists:foldr(fun chain_actions/2, [], As).
+%% chain_actions(A, []) -> [A];
+%% chain_actions(A, Bs=[Next|_]) -> 
+%%     [ setelement(7,A,Next) | Bs ]. % ugly hack working w/ Nitro 2.1.0
