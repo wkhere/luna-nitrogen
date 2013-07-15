@@ -49,7 +49,10 @@ copyright() ->
         body=[ "&copy; ",
             #span{style="font-size:80%", body="2013 "},
             #link{ text="Dual Tech", url="http://dualtech.com.pl" },
-            ". All Rigths Reserved."
+            ". Crafted using ",
+            #span{style="color:#fff", body="Beautiful Design"},
+            ".",
+            "<br/>All Rigths Reserved."
     ]}.
 
 -spec placeholder() -> elements().
