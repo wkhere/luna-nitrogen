@@ -52,7 +52,9 @@ copyright() ->
             ". Crafted using ",
             #span{style="color:#fff", body="Beautiful Design"},
             ".",
-            "<br/>All Rigths Reserved."
+            #br{},
+            #link{text="Valid", url="http://validator.w3.org/check/referer"},
+            " Html5. Powered by awareness."
     ]}.
 
 -spec placeholder() -> elements().
