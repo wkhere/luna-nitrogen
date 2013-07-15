@@ -141,9 +141,9 @@ rand_n(LastX, N) ->
     end.
 
 
--spec maybe(T,T) -> T.
-maybe(undefined, Default) -> Default;
-maybe(X, _) -> X.
+%% -spec maybe(T,T) -> T.
+%% maybe(undefined, Default) -> Default;
+%% maybe(X, _) -> X.
 
 %% -spec runner(fun(()->any())) -> #event{}.
 %% runner(F) ->
