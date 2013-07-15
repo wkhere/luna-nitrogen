@@ -1,6 +1,6 @@
 %% -*- mode: nitrogen -*-
 -module (index).
--compile(export_all).
+-export([main/0, title/0, desc/0, keywords/0, body/0, event/1]).
 -include_lib("nitrogen_core/include/wf.hrl").
 
 -type element() :: tuple() |string() | binary(). %todo: all wf elements
