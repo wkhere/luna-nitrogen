@@ -94,6 +94,7 @@ moonpix(Pix) ->
         body= #image{
             id=moonpix,
             image="/images/" ++ PixName ++ "_small.jpg",
+            alt="Moon image shines here",
             style="height:100px" }},
     {Element, Action}.
 
