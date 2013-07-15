@@ -25,6 +25,7 @@ body() ->
         MoonAction,
         #appear{speed=1000}
     ]),
+    wf:comet(fun rotate_moonpix/0),
     wf:wire(main, copyright, #event{ type=mouseover, actions= #fade{} }),
     wf:wire(main, copyright, #event{ type=mouseout, actions= #appear{} }),
     [
@@ -110,6 +111,19 @@ new_moonpix() ->
 %% - it (probably) should be an array of actions, not a single action
 %% - #script doesn't consider actions field
 
+-spec rotate_moonpix() -> no_return().
+rotate_moonpix() ->
+    timer:sleep( (10+rand(15))*1000 ),
+    new_moonpix(),
+    wf:flush(),
+    rotate_moonpix().
+%% I was thinking that mutex-like thing will be needed between comet
+%% rotator and clickable pix switch, but nothing bad happens. Note
+%% that comet generates periodic post requests to the server each
+%% 7-10s, taking ca. 86kB/10 min (Why? i thought it will be only each
+%% wf:flush() but it is more often).
+%% One way to lower this transfer is to switch_to_polling(period like
+%% 20s) but then the granularity of random sleeps is 20s.
 
 -spec logo() -> elements().
 logo() -> [
