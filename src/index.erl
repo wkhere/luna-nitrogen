@@ -124,6 +124,10 @@ logo() -> [
 
 event(pixclicked) ->
     new_moonpix().
+% Note that 'pixclicked' stuff could be done in other framework
+% totally on the client side - we got only DOM/CSS manipulation. But
+% here it would require translator from subset of Erlang to JS.
+
 
 %% helpers
 
