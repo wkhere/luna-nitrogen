@@ -93,6 +93,7 @@ moonpix(Pix) ->
             style="height:100px" }},
     {Element, Action}.
 
+-spec new_moonpix() -> ok.
 new_moonpix() ->
     {Pix, Action} = moonpix(),
     PixSrc = Pix#link.body#image.image,
@@ -119,6 +120,7 @@ logo() -> [
 ].
 
 %% events
+-spec event(any()) -> ok.
 
 event(pixclicked) ->
     new_moonpix().
@@ -133,6 +135,7 @@ rand_element(Token, Xs) ->
     wf:state(Token, N),
     lists:nth(N, Xs).
 
+-spec rand_n(pos_integer(), pos_integer()) -> pos_integer().
 rand_n(LastX, N) ->
     X = crypto:rand_uniform(1,1+N),
     case X of
