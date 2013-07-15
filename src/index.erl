@@ -137,12 +137,15 @@ rand_element(Token, Xs) ->
 
 -spec rand_n(pos_integer(), pos_integer()) -> pos_integer().
 rand_n(LastX, N) ->
-    X = crypto:rand_uniform(1,1+N),
+    X = rand(N),
     case X of
         LastX -> rand_n(LastX, N);
         _ -> X
     end.
 
+-spec rand(pos_integer()) -> pos_integer().
+rand(N) ->
+    crypto:rand_uniform(1,1+N).
 
 %% -spec maybe(T,T) -> T.
 %% maybe(undefined, Default) -> Default;
