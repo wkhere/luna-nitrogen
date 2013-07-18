@@ -1,17 +1,19 @@
 %% -*- mode: nitrogen -*-
 -module (index).
--export([main/0, title/0, desc/0, keywords/0, body/0, event/1]).
+-export([main/0, author/0, title/0, desc/0, keywords/0, body/0, event/1]).
 -include_lib("nitrogen_core/include/wf.hrl").
 
 -type element() :: tuple() |string() | binary(). %todo: all wf elements
 -type action() :: tuple().
 -type elements() :: list(element()).
 -spec main() -> #template{}.
+-spec author() -> string().
 -spec title() -> string().
 -spec desc() -> string().
 -spec keywords() -> string().
 
 main() -> #template { file="./site/templates/bare.html" }.
+author() -> "Dual Tech".
 title() -> "luna.inthephase".
 desc() -> "All things lunar.".
 keywords() -> "moon, moon phases, luna, lunar".
