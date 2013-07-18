@@ -16,7 +16,8 @@ main() -> #template { file="./site/templates/bare.html" }.
 author() -> "Dual Tech".
 title() -> "luna.inthephase".
 desc() -> "All things lunar.".
-keywords() -> "moon, moon phases, luna, lunar".
+keywords() -> "moon, moon phase, luna, lunar, "
+    "luna in the phase, moon in the phase, in the phase".
 
 
 -spec body() -> elements().
