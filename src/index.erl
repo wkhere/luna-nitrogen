@@ -71,14 +71,18 @@ placeholder() -> [
 
 
 -type pix() :: string() | {string(), {atom(), atom()}}.
+-spec pixtab() -> [pix()].
 -spec rand_from_pixtab() -> pix().
-rand_from_pixtab() ->
-    Pixtab = [
+
+pixtab() ->
+    [
         "Golden_Moon", "Moonburn",
         "Lunar_eclipse_June_2011", "Solar_eclipse_1999",
         {"Solar_eclipse_May_2013", {bg, '#130101'}}
-    ],
-    rand_element(last_moon, Pixtab).
+    ].
+
+rand_from_pixtab() ->
+    rand_element(last_moon, pixtab()).
 
 
 -spec moonpix() -> {#link{}, action()}.
