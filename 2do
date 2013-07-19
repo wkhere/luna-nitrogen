@@ -1,0 +1,5 @@
+- go with actual moonphase lib
+- moonphase ui
+- refac: go with elements for structured data (as submodules)
+- opt: get proper ct_expand which works with wf.hrl
+- fix typer script so it accepts file args from a subdir
