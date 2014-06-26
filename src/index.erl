@@ -48,16 +48,16 @@ body() ->
 -spec copyright() -> #panel{}.
 copyright() ->
     #panel{ id=copyright,
-        style="font:small-caps 15px normal; text-align:center; color:#aaa",
+        style="font:small-caps 15px normal; text-align:center; color:#ccc",
         body=[ "&copy; ",
             #span{style="font-size:80%", body="2013 "},
             #link{ text="Dual Tech", url="http://dualtech.com.pl" },
             ". Crafted using ",
-            #span{style="color:#fff", body="Beautiful Design"},
-            ".",
+            #span{class="link", body="Vibrant Design"},
+            "™.",
             #br{},
             #link{text="Valid", url="http://validator.w3.org/check/referer"},
-            " Html5. Powered by awareness."
+            " Html. Powered by awareness."
     ]}.
 
 -spec placeholder() -> elements().

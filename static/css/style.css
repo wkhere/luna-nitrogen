@@ -52,11 +52,11 @@ p {
 }
 
 
-a, a:visited { 
+a, a:visited, .link { 
     color: #eee;
     text-decoration: none; 
 }
 
-a:hover, a:active { 
+a:hover, a:active, .link:hover { 
     text-decoration: underline; 
 }
