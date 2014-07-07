@@ -3,3 +3,9 @@
 - refac: go with elements for structured data (as submodules)
 - opt: get proper ct_expand which works with wf.hrl
 - fix typer script so it accepts file args from a subdir
+- add post-receive from origin and fix it so it stops push
+    if hook exited with error
+- HEYY chrome LEAKS almost a 1GB after few hours when 
+    opened the page served here and launched console!!
+  Anyway this impl. of luna will rather be discontinued -
+    in favor of Rockside..
